@@ -30,9 +30,6 @@ public:
             slow=slow->next;
             fast=fast->next->next;
         }
-        //if(fast->next==NULL){
-          //  slow=slow->next; // in case of odd 
-        //}
          
         // store the middle element
         ListNode* mid = slow;
