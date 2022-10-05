@@ -2,6 +2,9 @@ class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         vector<vector<int>> result;
+        // edge case
+        if(intervals.size()==0) return(result);
+        if(intervals.size()==1) return(intervals);
         // sort the intervals
         sort(intervals.begin(),intervals.end());
         
