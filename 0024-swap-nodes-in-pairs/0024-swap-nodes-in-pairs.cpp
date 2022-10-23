@@ -11,8 +11,6 @@
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        // boundary case
-        //if(head || head->next) return head;
         
         // create a dummy node for tracking head
         ListNode* dummy = new ListNode(-1);
