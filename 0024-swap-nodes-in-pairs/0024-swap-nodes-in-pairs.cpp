@@ -11,6 +11,8 @@
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
+        // boundary case
+        //if(head || head->next) return head;
         
         // create a dummy node for tracking head
         ListNode* dummy = new ListNode(-1);
@@ -23,19 +25,17 @@ public:
         // go through to the linked list
         while(curr && curr->next){
             
-            // save pointers
-            ListNode* nextptr= curr->next->next;
-            ListNode* second = curr->next;
-            
-            // swapping process
-            second->next=curr;
-            curr->next=nextptr;
-            prev->next=second;
-            
-            // update pointers
-            prev=curr;
-            curr=nextptr;
+            // connect previous node with the next node of current node
+            prev->next=curr->next;
+            // connect current node with the next to next node
+            curr->next=curr->next->next;
+            // connect the next of previous node with current
+            prev->next->next = curr;
+            // update current and previous pointers
+            curr=curr->next;
+            prev=prev->next->next;
         }
         return(dummy->next);
+        
     }
 };
