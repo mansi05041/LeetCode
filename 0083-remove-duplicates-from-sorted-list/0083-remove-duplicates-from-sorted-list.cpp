@@ -20,7 +20,7 @@ public:
             }
             curr=curr->next;
         }
-        if(prev!=curr) prev->next=NULL;
+       if(prev!=curr) prev->next=NULL;
         return head;
     }
 };
