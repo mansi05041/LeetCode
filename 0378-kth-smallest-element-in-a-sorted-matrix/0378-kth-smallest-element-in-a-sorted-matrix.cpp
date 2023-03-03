@@ -9,7 +9,7 @@ public:
             }
         }
         while(pq.size()>k){
-            pq.pop();
+            pq.pop(); // remove the size-k elements from priority queue
         }
         return pq.top();
     }
