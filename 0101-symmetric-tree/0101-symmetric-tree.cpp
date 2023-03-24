@@ -13,7 +13,8 @@ class Solution {
 public:
     bool checkSymmetric(TreeNode* left, TreeNode* right){
         // base condition
-        if(left==NULL || right==NULL) return(left==right);
+        if(left==NULL && right==NULL) return true;
+        if(left==NULL || right==NULL) return false;
         
         // impose and check the value are same or not
         if(left->val!=right->val) return false;
