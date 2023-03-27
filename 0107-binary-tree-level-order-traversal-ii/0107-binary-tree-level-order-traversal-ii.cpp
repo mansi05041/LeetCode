@@ -28,8 +28,9 @@ public:
                 if(node->left) qnode.push(node->left);
                 if(node->right) qnode.push(node->right);
             }
-            ans.insert(ans.begin(),temp);
+            ans.push_back(temp);
         }
+        reverse(ans.begin(),ans.end());
         return ans;
     }
 };
