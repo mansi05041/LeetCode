@@ -9,13 +9,13 @@ public:
             stone.push(it);
         }
         while(stone.size()>1){
-            int topStone = stone.top();
+            int HeaviestStone = stone.top();
             stone.pop();
-            int SecondStone = stone.top();
+            int SecondHeaviestStone = stone.top();
             stone.pop();
-            if(topStone!=SecondStone){
-                topStone-=SecondStone;
-                stone.push(topStone);
+            if(HeaviestStone!=SecondHeaviestStone){
+                HeaviestStone-=SecondHeaviestStone;
+                stone.push(HeaviestStone);
             }
         }
         return stone.empty()? 0: stone.top();
