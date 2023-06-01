@@ -3,6 +3,35 @@
 using namespace std;
 
 // } Driver Code Ends
+
+class DisjointSet{
+    vector<int> rank,parent;
+    public:
+    // constructor
+    DisjointSet(int n){
+        rank.resize(n+1,0);
+        parent.resize(n+1);
+        for(int i=0;i<=n;i++) parent[i]=i;
+    }
+    // function to find the ultimate pair
+    int findUpair(int node){
+        if(node==parent[node]) return node;
+        return parent[node]= findUpair(parent[node]);
+    }
+    // function to apply union by rank
+    void unionByRank(int u,int v){
+        int ulp_u = findUpair(u);
+        int ulp_v = findUpair(v);
+        if(ulp_u == ulp_v) return; // if both have same ultimate parent
+        if(rank[ulp_u]<rank[ulp_v]) parent[ulp_u] = ulp_v;
+        else if(rank[ulp_v]<rank[ulp_u]) parent[ulp_v] = ulp_u;
+        else{
+            parent[ulp_v]=ulp_u;
+            rank[ulp_u]++;
+        }
+    }
+};
+
 class Solution
 {
 	public:
@@ -10,39 +39,37 @@ class Solution
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         // code here
-        // using prims Algorithm
-        
-        // min heap that store the weight and node
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
-        
-        // visited array 
-        vector<bool> visited(V,false);
-        
-        // push the source node with intial weight
-        pq.push({0,0});
-        int sum=0;
-        
-        while(!pq.empty()){
-            // remove the minimum weight node
-            auto wt = pq.top().first;
-            auto node = pq.top().second;
-            pq.pop();
-            
-            // if the node is already visited then skip it
-            if(visited[node]==true) continue;
-            
-            // not visited then add to sum and mark it visited
-            visited[node]=true;
-            sum+=wt;
-            
-            // iterate over neighbours
-            for(auto it: adj[node]){
-                // if the neighbor node is not visited then push into minheap
-                if(visited[it[0]]==false) pq.push({it[1],it[0]});
+        vector<pair<int,pair<int,int>>> edges;
+        for(int i=0;i<V;i++){
+            for(auto it:adj[i]){
+                auto wt = it[1];
+                auto u = i;
+                auto v = it[0];
+                
+                edges.push_back({wt,{u,v}});
             }
         }
         
-        return sum;
+        // sort the edges
+        sort(edges.begin(),edges.end());
+        
+        // use the disjoint sets
+        DisjointSet ds(V);
+        
+        int mstWT = 0;
+        
+        for(auto it: edges){
+            auto wt = it.first;
+            auto u = it.second.first;
+            auto v = it.second.second;
+            
+            if(ds.findUpair(u)!=ds.findUpair(v)) {
+                mstWT+= wt;
+                ds.unionByRank(u,v);
+            }
+        }
+        
+        return mstWT;
     }
 };
 
