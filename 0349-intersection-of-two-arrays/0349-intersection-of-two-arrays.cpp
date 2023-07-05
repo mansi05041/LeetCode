@@ -1,14 +1,17 @@
 class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
-        set<int> s1,s2;
+        /*set<int> s1,s2;
         // unique values 
         for(auto it:nums1){
             s1.insert(it); // 1 2 
         }
         for(auto it:nums2){
             s2.insert(it); // 2
-        }
+        }*/
+        
+        set<int> s1(nums1.begin(),nums1.end());
+        set<int> s2(nums2.begin(),nums2.end());
         
         /*
         // value-freq map
