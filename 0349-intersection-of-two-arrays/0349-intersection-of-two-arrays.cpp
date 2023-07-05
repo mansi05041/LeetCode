@@ -10,6 +10,7 @@ public:
             s2.insert(it); // 2
         }
         
+        /*
         // value-freq map
         unordered_map<int,int> mp;
         for(auto it: s1){
@@ -22,8 +23,10 @@ public:
         vector<int> ans;
         for(auto it:mp){
             if(it.second>1) ans.push_back(it.first);
-        }
+        }*/
+        vector<int> result;
+        set_intersection(s1.begin(),s1.end(),s2.begin(),s2.end(),back_inserter(result));
         
-        return ans;
+        return result;
     }
 };
