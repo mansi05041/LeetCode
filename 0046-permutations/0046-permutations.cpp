@@ -1,25 +1,26 @@
 class Solution {
 public:
-    vector<vector<int>> permute(vector<int>& nums) {
-        
-        // result vector
-        vector<vector<int>> result;
-        
+    void helper(vector<int>& nums,vector<vector<int>>& ans,vector<int>& temp){
         // base case
-        if(nums.size()<=1) return{nums};
+        if(temp.size()==nums.size()){
+            ans.push_back(temp);
+            return;
+        }
         
-        for(int i=0;i<nums.size();i++){
-            vector<int> v(nums.begin(),nums.end());
-            // remove the character at ith position
-            v.erase(v.begin()+i);
-            // Recursively call the function
-            auto perms = permute(v);
-            // append the removed digit
-            for(auto it: perms){
-                it.push_back(nums[i]);
-                result.push_back(it);
+        for(auto num:nums){
+            if(find(temp.begin(),temp.end(),num)==temp.end()){
+                temp.push_back(num);
+                helper(nums,ans,temp);
+                temp.pop_back();
             }
         }
-        return result;
+        
+    }
+    
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> temp;
+        helper(nums,ans,temp);
+        return ans;
     }
 };
