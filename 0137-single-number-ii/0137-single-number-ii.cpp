@@ -1,15 +1,21 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        for(auto it: nums){
-            mp[it]++;
+        int result = 0;
+        
+        for(int i=0;i<32;i++){
+            int count = 0;
+            int mask = 1<<i;
+            
+            for(int num:nums){
+                if(num & mask) count++;
+            }
+            
+            if(count%3!=0){
+                result = result | mask;
+            }
         }
         
-        for(auto it: mp){
-            if(it.second==1) return it.first;
-        }
-        
-        return -1;
+        return result;
     }
 };
