@@ -1,6 +1,9 @@
 class Solution {
 public:
     const int mod = pow(10,9)+7;
+    /*
+    // Recursive approach
+    
     long long helper(int n,int goal,int k,vector<vector<int>>& dp){
         // base case
         // empty playlist
@@ -21,7 +24,7 @@ public:
         long long replay = helper(n,goal-1,k,dp)* max(n-k,0);
         
         return dp[n][goal] = (add+replay)%mod;
-    }
+    }*/
     
     int numMusicPlaylists(int n, int goal, int k) {
         vector<vector<long long>> dp(n+1,vector<long long>(goal+1,0));
