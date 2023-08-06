@@ -24,8 +24,18 @@ public:
     }
     
     int numMusicPlaylists(int n, int goal, int k) {
-        vector<vector<int>> dp(n+1,vector<int>(goal+1,-1));
+        vector<vector<long long>> dp(n+1,vector<long long>(goal+1,0));
+        dp[0][0] = 1; // base case : empty playlist
         
-        return helper(n,goal,k,dp);
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=goal;j++){
+                // add a song
+                long long add = dp[i-1][j-1]*i;
+                long long replay = dp[i][j-1]*max(i-k,0);
+                dp[i][j] = (add+replay)%mod;
+            }
+        }
+        
+        return dp[n][goal];
     }
 };
