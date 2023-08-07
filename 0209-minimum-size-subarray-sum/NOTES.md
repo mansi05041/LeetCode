@@ -1,23 +1,24 @@
-# two pointer approach
-maintain a pointer start that track the starting point of window
-​
+# brute force approach
+try out all the possible ways
 ```
 int minSubArrayLen(int target, vector<int>& nums) {
-if(nums.size()==0) return 0;
-int sum = 0;
 int minSize = INT_MAX;
-int start = 0;
-for(int i=0;i<nums.size();i++){
-sum+=nums[i];  // add into current sum
-while(sum>=target){
-minSize = min(minSize,i+1-start);  // maintain the minimum window
-sum-=nums[start];  // decrease the window size
-start++;
+for(int i=0;i<nums.size();i++){   // start of window
+for(int j=i;j<nums.size();j++){  // end of window
+int sum = 0;
+for(int k=i;k<=j;k++){  // getting the elements of current window
+sum+=nums[k];
+}
+if(sum>=target){
+minSize = min(minSize,(j-i+1));
+break;
+}
 }
 }
 return minSize==INT_MAX ? 0 : minSize;
 }
-​
 ```
+Time complexity: O(n<sup>3</sup>)
 ​
-Time complexity : O(n)
+# better brute force approach
+modified the above approach using cumulative sum, we get an extra space complexity : O(n)
