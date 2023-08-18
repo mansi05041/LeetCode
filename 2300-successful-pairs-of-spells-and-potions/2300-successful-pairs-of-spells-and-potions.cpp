@@ -2,23 +2,28 @@ class Solution {
 public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
         vector<int> res;
-        // sort the array
+        
+        // sort the potions
         sort(potions.begin(),potions.end());
-        for(auto i: spells){
-            int pos=potions.size();
-            // applying binary search
-            int left =0;
-            int right =potions.size()-1;
-            while(left<=right){
-                int mid = left+(right-left)/2;
-                if((long long)i*potions[mid]>=success){
-                    right = mid-1;
+        
+        for(auto spell: spells){
+            int pos = potions.size();
+            int low = 0;
+            int high = potions.size()-1;
+            
+            while(low<=high){
+                int mid = low + (high-low)/2;
+                
+                if((long long)spell*potions[mid]<success) low = mid+1;
+                else{
                     pos = mid;
+                    high = mid-1;
                 }
-                else left = mid+1;
             }
+            
             res.push_back(potions.size()-pos);
         }
+        
         return res;
     }
 };
