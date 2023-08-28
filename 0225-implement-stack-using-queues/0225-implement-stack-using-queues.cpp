@@ -1,32 +1,32 @@
 class MyStack {
 public:
-    queue<int>* q;
+    queue<int> q;
     MyStack() {
-      q = new queue<int>;
+
     }
     
     void push(int x) {
-        int size=q->size();
-        q->push(x); // insert at the top of stack
-        while(size>0){
-            q->push(q->front());
-            q->pop();
-            --size;
+        int size = q.size();
+        q.push(x);
+        while(size--){
+            int ele = q.front();
+            q.pop();
+            q.push(ele);
         }
     }
     
     int pop() {
-        int res=top();
-        q->pop();
-        return res;
+        int ele = q.front();
+        q.pop();
+        return ele;
     }
     
     int top() {
-        return q->front();
+        return q.front();
     }
     
     bool empty() {
-        return q->empty();
+        return q.empty();
     }
 };
 
